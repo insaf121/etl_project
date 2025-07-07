@@ -61,7 +61,7 @@ def load_table(csv_path, table_name, encoding='utf-8'):
         # 1. Инициализация и логирование
         config = TABLE_CONFIGS[table_name]
         log_etl_event(table_name, "START", 0, f"Начало загрузки {csv_path}")
-        print(f"⏳ Начало загрузки {table_name}...")
+        print(f" Начало загрузки {table_name}...")
         
         # 2. Добавляем задержку 5 секунд перед началом загрузки
         time.sleep(5)
@@ -113,12 +113,12 @@ def load_table(csv_path, table_name, encoding='utf-8'):
         duration = round(time.time() - start_time, 2)
         msg = f"Успешно загружено {len(rows)} строк за {duration} сек"
         log_etl_event(table_name, "FINISH", len(rows), msg)
-        print(f"✅ {msg}")
+        print(f" {msg}")
 
     except Exception as e:
         if conn: conn.rollback()
         log_etl_event(table_name, "ERROR", 0, str(e))
-        print(f"❌ Ошибка: {e}")
+        print(f" Ошибка: {e}")
         raise
     finally:
         if conn: conn.close()
@@ -137,10 +137,10 @@ def main():
     for item in tables:
         try:
             print(f"\n{'='*50}")
-            print(f"⚙️ Загрузка {item[1]} из {item[0]}")
+            print(f" Загрузка {item[1]} из {item[0]}")
             load_table(*item)  # Распаковываем параметры
         except Exception as e:
-            print(f"🚨 Прерывание загрузки: {e}")
+            print(f" Прерывание загрузки: {e}")
             break
 
 if __name__ == "__main__":
