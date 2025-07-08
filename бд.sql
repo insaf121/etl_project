@@ -123,32 +123,28 @@ CREATE TABLE IF NOT EXISTS DM.DM_F101_ROUND_F (
     ledger_account CHAR(5),
     characteristic CHAR(1),
     balance_in_rub NUMERIC(23,8),
-    r_balance_in_rub NUMERIC(23,8),
     balance_in_val NUMERIC(23,8),
-    r_balance_in_val NUMERIC(23,8),
     balance_in_total NUMERIC(23,8),
-    r_balance_in_total NUMERIC(23,8),
     turn_deb_rub NUMERIC(23,8),
-    r_turn_deb_rub NUMERIC(23,8),
     turn_deb_val NUMERIC(23,8),
-    r_turn_deb_val NUMERIC(23,8),
     turn_deb_total NUMERIC(23,8),
-    r_turn_deb_total NUMERIC(23,8),
     turn_cre_rub NUMERIC(23,8),
-    r_turn_cre_rub NUMERIC(23,8),
     turn_cre_val NUMERIC(23,8),
-    r_turn_cre_val NUMERIC(23,8),
     turn_cre_total NUMERIC(23,8),
-    r_turn_cre_total NUMERIC(23,8),
     balance_out_rub NUMERIC(23,8),
-    r_balance_out_rub NUMERIC(23,8),
     balance_out_val NUMERIC(23,8),
-    r_balance_out_val NUMERIC(23,8),
     balance_out_total NUMERIC(23,8),
-    r_balance_out_total NUMERIC(23,8),
     PRIMARY KEY (from_date, to_date, chapter, ledger_account, characteristic)
 );
 
 
 CREATE INDEX IF NOT EXISTS idx_dm_account_turnover_f_date ON DM.DM_ACCOUNT_TURNOVER_F (on_date);
 CREATE INDEX IF NOT EXISTS idx_dm_f101_round_f_dates ON DM.DM_F101_ROUND_F (from_date, to_date);
+
+CREATE TABLE IF NOT EXISTS DM.DM_ACCOUNT_BALANCE_F (
+    on_date DATE,
+    account_rk NUMERIC,
+    balance_out NUMERIC(23,8),
+    balance_out_rub NUMERIC(23,8),
+    PRIMARY KEY (on_date, account_rk)
+);
