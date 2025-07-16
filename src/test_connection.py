@@ -12,7 +12,7 @@ try:
         password=os.getenv('DB_PASSWORD'),
         port=os.getenv('DB_PORT')
     )
-    print("✅ Подключение успешно!")
+    print(" Подключение успешно!")
     conn.close()
 except Exception as e:
-    print(f"❌ Ошибка подключения: {e}")
+    print(f" Ошибка подключения: {e}")

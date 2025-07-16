@@ -2,11 +2,9 @@ CREATE OR REPLACE PROCEDURE ds.fill_account_turnover_f(i_OnDate DATE)
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    -- Логирование начала операции
     INSERT INTO LOGS.ETL_LOGS (event_timestamp, event_type, table_name)
     VALUES (CURRENT_TIMESTAMP, 'START', 'DM.DM_ACCOUNT_TURNOVER_F');
     
-    -- Удаление данных за указанную дату (идемпотентность)
     DELETE FROM DM.DM_ACCOUNT_TURNOVER_F WHERE on_date = i_OnDate;
     
     -- Вставка оборотов по кредиту и дебету с конвертацией в рубли
@@ -71,7 +69,7 @@ BEGIN
     FROM credit_turnovers c
     FULL OUTER JOIN debet_turnovers d ON c.account_rk = d.account_rk;
     
-    -- Логирование завершения
+
     INSERT INTO LOGS.ETL_LOGS (event_timestamp, event_type, table_name, rows_processed)
     VALUES (CURRENT_TIMESTAMP, 'FINISH', 'DM.DM_ACCOUNT_TURNOVER_F', (SELECT COUNT(*) FROM DM.DM_ACCOUNT_TURNOVER_F WHERE on_date = i_OnDate));
 END;
